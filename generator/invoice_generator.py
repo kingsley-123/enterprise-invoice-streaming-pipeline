@@ -27,16 +27,16 @@ fake = faker.Faker()
 
 # Store locations across different regions
 STORES = [
-    {"store_id": "NYC-001", "name": "Manhattan Downtown", "city": "New York", "state": "NY", "region": "Northeast"},
-    {"store_id": "LA-001", "name": "Hollywood Boulevard", "city": "Los Angeles", "state": "CA", "region": "West"},
-    {"store_id": "CHI-001", "name": "Magnificent Mile", "city": "Chicago", "state": "IL", "region": "Midwest"},
-    {"store_id": "MIA-001", "name": "South Beach", "city": "Miami", "state": "FL", "region": "Southeast"},
-    {"store_id": "SEA-001", "name": "Pike Place", "city": "Seattle", "state": "WA", "region": "Northwest"},
-    {"store_id": "DAL-001", "name": "Deep Ellum", "city": "Dallas", "state": "TX", "region": "Southwest"},
-    {"store_id": "BOS-001", "name": "Back Bay", "city": "Boston", "state": "MA", "region": "Northeast"},
-    {"store_id": "SF-001", "name": "Union Square", "city": "San Francisco", "state": "CA", "region": "West"},
-    {"store_id": "ATL-001", "name": "Buckhead", "city": "Atlanta", "state": "GA", "region": "Southeast"},
-    {"store_id": "DEN-001", "name": "Downtown", "city": "Denver", "state": "CO", "region": "Southwest"}
+    {"store_id": "NYC-001", "name": "Manhattan Downtown", "city": "New York", "state": "NY", "region": "Northeast", "weight": 15},
+    {"store_id": "LA-001", "name": "Hollywood Boulevard", "city": "Los Angeles", "state": "CA", "region": "West", "weight": 12},
+    {"store_id": "CHI-001", "name": "Magnificent Mile", "city": "Chicago", "state": "IL", "region": "Midwest", "weight": 10},
+    {"store_id": "MIA-001", "name": "South Beach", "city": "Miami", "state": "FL", "region": "Southeast", "weight": 8},
+    {"store_id": "SEA-001", "name": "Pike Place", "city": "Seattle", "state": "WA", "region": "Northwest", "weight": 7},
+    {"store_id": "DAL-001", "name": "Deep Ellum", "city": "Dallas", "state": "TX", "region": "Southwest", "weight": 9},
+    {"store_id": "BOS-001", "name": "Back Bay", "city": "Boston", "state": "MA", "region": "Northeast", "weight": 8},
+    {"store_id": "SF-001", "name": "Union Square", "city": "San Francisco", "state": "CA", "region": "West", "weight": 11},
+    {"store_id": "ATL-001", "name": "Buckhead", "city": "Atlanta", "state": "GA", "region": "Southeast", "weight": 10},
+    {"store_id": "DEN-001", "name": "Downtown", "city": "Denver", "state": "CO", "region": "Southwest", "weight": 10}
 ]
 
 # Payment methods with realistic usage weights
@@ -284,7 +284,16 @@ class EnterpriseInvoiceGenerator:
         # Generate components
         customer = self._generate_customer()
         store_data = self._weighted_choice(STORES)
-        store = Store(**store_data)
+        
+        # Create store object (exclude weight field)
+        store = Store(
+            store_id=store_data['store_id'],
+            name=store_data['name'],
+            city=store_data['city'],
+            state=store_data['state'],
+            region=store_data['region']
+        )
+        
         line_items = self._generate_line_items(customer.segment)
         
         # Calculate finances
@@ -494,4 +503,5 @@ def main():
         api_endpoint=args.api_endpoint
     )
 
+# Run the main function
 main()
