@@ -1,0 +1,48 @@
+services:
+  # Invoice API Service
+  invoice-api:
+    build: ./api
+    hostname: invoice-api
+    container_name: invoice-api
+    environment:
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 1G
+          cpus: '0.5'
+    networks:
+      - invoice-network
+    restart: unless-stopped
+
+  # Invoice Generator Service
+  invoice-generator:
+    build: ./generator
+    hostname: invoice-generator
+    container_name: invoice-generator
+    depends_on:
+      - invoice-api
+    environment:
+      - API_ENDPOINT=http://invoice-api:8000/invoices
+      - GENERATION_RATE=50
+      - GENERATION_DURATION=0  # 0 = unlimited
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+    networks:
+      - invoice-network
+    restart: unless-stopped
+    # Override default command
+    command: ["python", "invoice_generator.py", "--rate=50", "--api-endpoint=http://invoice-api:8000/invoices"]
+
+networks:
+  invoice-network:
+    driver: bridge
