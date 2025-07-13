@@ -1,0 +1,5 @@
+v1
+{"path":"file:///opt/spark-data/invoices/part-00000-0f3009a2-cb16-4016-a9df-da454879a934-c000.json","size":867,"isDir":false,"modificationTime":1752445511370,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///opt/spark-data/invoices/part-00001-4e377986-427a-4932-b681-4d3a66dbf73e-c000.json","size":422,"isDir":false,"modificationTime":1752445511402,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///opt/spark-data/invoices/part-00002-75205b90-bf97-4ec6-a703-5af5803ea4ca-c000.json","size":431,"isDir":false,"modificationTime":1752445512082,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///opt/spark-data/invoices/part-00003-4179c530-f0ec-47dc-8ca9-dd371436cffa-c000.json","size":1737,"isDir":false,"modificationTime":1752445512061,"blockReplication":1,"blockSize":33554432,"action":"add"}

@@ -1,0 +1,19 @@
+FROM bitnami/spark:3.5.0
+
+USER root
+
+# Create jars directory if it doesn't exist
+RUN mkdir -p /opt/spark/jars
+
+# Copy MongoDB, Kafka, and other dependencies from local jars folder
+COPY jars/*.jar /opt/spark/jars/
+
+# Verify JARs were copied
+RUN ls -la /opt/spark/jars/ || echo "JARs directory contents listed"
+
+# Create necessary directories
+RUN mkdir -p /opt/spark-apps /opt/spark-data /opt/spark/logs && \
+    chown -R 1001:1001 /opt/spark-apps /opt/spark-data /opt/spark/logs
+
+# Switch back to non-root user
+USER 1001
