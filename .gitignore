@@ -1,0 +1,12 @@
+# Spark runtime directories
+spark-data/
+spark-logs/
+
+# Python cache
+spark-apps/*.pyc
+spark-apps/__pycache__/
+
+# Other common ignores
+.env
+*.log
+.DS_Store
