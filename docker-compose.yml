@@ -372,6 +372,19 @@ services:
     networks:
       - invoice-network
     restart: unless-stopped
+
+  powerbi-api:
+    build: 
+      context: ./powerbi-api
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    networks:
+      - invoice-network
+    environment:
+      - MONGO_HOST=mongodb
     
 volumes:
   zookeeper-data:
